@@ -21,7 +21,7 @@ public class Brett {
     public void lagBrett() {
 
         for (int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 brett[i][j] = '-';
             }
         }
@@ -34,9 +34,9 @@ public class Brett {
     public void skrivutBrett() {
         System.out.println("--------------");
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             System.out.print("| ");
-            for(int j = 0; j < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 System.out.print(brett[i][j] + " | ");
             }
             System.out.println();
@@ -50,9 +50,9 @@ public class Brett {
     public boolean erBrettetFullt() {
         boolean erFullt = true;
 
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                if(brett[i][j] == '-') {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (brett[i][j] == '-') {
                     erFullt = false;
                 }
             }
@@ -63,39 +63,41 @@ public class Brett {
     }
 
     public boolean sjekkSiger() {
-        return (sjekkRadForSiger() || sjekkKolonneForSiger() || sjekkDiagonalForSiger());
+
+        return sjekkRader() || sjekkKolonner() || sjekkDiagonal();
     }
 
-    private boolean sjekkRadForSiger() {
-        for(int i = 0; i < 3; i++) {
-            if(sjekkRadKolonne(brett[i][0], brett[1][i], brett[2][i]) == true) {
-                return true;
-            }
+    private boolean sjekkRader() {
+
+        for (int i = 0; i < 3; i++) {
+            if (brett[i][0] == 'x' && brett[i][1] == 'x' && brett[i][2] == 'x') return true;
+            else if (brett[i][0] == 'o' && brett[i][1] == 'o' && brett[i][2] == 'o') return true;
         }
+
         return false;
     }
 
-
-    private boolean sjekkKolonneForSiger() {
-        for(int i = 0; i < 3; i++) {
-            if(sjekkRadKolonne(brett[0][i], brett[1][i], brett[2][i]) == true) {
-                return true;
-            }
+    private boolean sjekkKolonner() {
+        for (int i = 0; i < 3; i++) {
+            if (brett[0][i] == 'x' && brett[1][i] == 'x' && brett[2][i] == 'x') return true;
+            else if (brett[0][i] == 'o' && brett[1][i] == 'o' && brett[2][i] == 'o') return true;
         }
+
         return false;
     }
 
-    private boolean sjekkDiagonalForSiger() {
-        return (((sjekkRadKolonne(brett[0][0], brett[1][1], brett[2][2]) == true)
-                || sjekkRadKolonne(brett[0][2], brett[1][1], brett[2][0]) == true));
+    private boolean sjekkDiagonal() {
+
+        if (brett[0][0] == 'x' && brett[1][1]== 'x' && brett[2][2] == 'x') return true;
+        else if (brett[0][0] == 'o' && brett[1][1]== 'o' && brett[2][2] == 'o') return true;
+        else if (brett[2][0] == 'x' && brett[1][1]== 'x' && brett[0][2] == 'x') return true;
+        else return brett[2][0] == 'o' && brett[1][1] == 'o' && brett[0][2] == 'o';
+
     }
 
-    private boolean sjekkRadKolonne(char c1, char c2, char c3) {
-        return ((c1 != '-') && (c1 == c2) && (c2 == c3));
-    }
 
     public void endreSpelar() {
-        if(spelarBrikke == 'x') {
+        if (spelarBrikke == 'x') {
             spelarBrikke = 'o';
         } else {
             spelarBrikke = 'x';
@@ -103,9 +105,9 @@ public class Brett {
     }
 
     public boolean plasserBrikke(int rad, int kolonne) {
-        if((rad >= 0) && (rad < 3)) {
-            if((kolonne >= 0) && (kolonne < 3)) {
-                if(brett[rad][kolonne] == '-') {
+        if ((rad >= 0) && (rad < 3)) {
+            if ((kolonne >= 0) && (kolonne < 3)) {
+                if (brett[rad][kolonne] == '-') {
                     brett[rad][kolonne] = spelarBrikke;
                     return true;
                 }
@@ -115,7 +117,20 @@ public class Brett {
         return false;
     }
 
-    public void nesteRunde() {
-        System.out.println("//////////////");
+
+    public char[][] getBrett() {
+        return brett;
+    }
+
+    public void setBrett(char[][] brett) {
+        this.brett = brett;
+    }
+
+    public char getSpelarBrikke() {
+        return spelarBrikke;
+    }
+
+    public void setSpelarBrikke(char spelarBrikke) {
+        this.spelarBrikke = spelarBrikke;
     }
 }

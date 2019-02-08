@@ -13,7 +13,6 @@ public class BondeSjakk {
 
 
     public static void main(String[] args) {
-        String vinnar = null;
         scan = new Scanner(System.in);
 
         Brett brett = new Brett();
@@ -22,24 +21,24 @@ public class BondeSjakk {
         brett.skrivutBrett();
         System.out.println("x er fyrste spelar, skriv inn rad(1-3) og kolonne(1-3) for å plassera brikka.");
 
-        while(vinnar == null) {
+        while (!brett.erBrettetFullt()) {
             int rad;
             int kolonne;
             try {
                 rad = scan.nextInt() - 1;
                 kolonne = scan.nextInt() - 1;
-                brett.plasserBrikke(rad,kolonne);
-                brett.skrivutBrett();
-                System.out.println("Neste runde! o sin tur.");
-                brett.endreSpelar();
-                rad = scan.nextInt() - 1;
-                kolonne = scan.nextInt() - 1;
                 brett.plasserBrikke(rad, kolonne);
                 brett.skrivutBrett();
+                if (brett.sjekkSiger()) break;
+                System.out.println("Neste spelar sin tur!");
+                brett.endreSpelar();
+
             } catch (NullPointerException e) {
                 System.out.println("Det skjedde ein feil.");
             }
         }
+
+        System.out.println("Gratulerar spelar " + brett.getSpelarBrikke() + " du er ein vinnar!");
 
 
     }
