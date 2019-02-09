@@ -13,6 +13,10 @@ public class BondeSjakk {
 
 
     public static void main(String[] args) {
+        spelSpelet();
+    }
+
+    public static void spelSpelet() {
         scan = new Scanner(System.in);
 
         Brett brett = new Brett();
@@ -38,8 +42,13 @@ public class BondeSjakk {
             }
         }
 
-        System.out.println("Gratulerar spelar " + brett.getSpelarBrikke() + " du er ein vinnar!");
-
+        if (brett.sjekkSiger()) {
+            System.out.println("Gratulerar spelar " + brett.getSpelarBrikke() + " du er ein vinnar!");
+        } else {
+            System.out.println("Det blei uavgjort. Prøv igjen!");
+            System.out.println("--------------------------\n");
+            spelSpelet();
+        }
 
     }
 }
